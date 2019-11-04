@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class LeetCodeTest {
+
+	public static void main(String[] args) {
+		int[] a = new int[]{1,2,3,4,5};
+		int[] b= new int[5];
+		b=deckRevealedIncreasing(a);
+		for(int i=0;i<5;i++){
+			System.out.println(b[i]);
+		}
+        
+	}
+
+	public static int[] deckRevealedIncreasing(int[] deck) {
+        Arrays.sort(deck);
+        Deque<Integer> q = new ArrayDeque<>();
+        int n =deck.length;
+        for(int i =0; i<n;i++){
+        	q.offer(i);
+        }
+
+        int[] res = new int[n];
+        for(int i =0; i<n;i++){
+        	res[q.pollFirst()]=deck[i];
+        	if(!q.isEmpty()){
+        		q.offerLast(q.pollFirst());
+        	}
+        }
+        return res;
+    }
+
+}
