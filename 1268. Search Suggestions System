@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        String curr = "";
+        Arrays.sort(products);
+        List<List<String>> res = new ArrayList<>();
+        
+        for (int i = 0; i < searchWord.length(); i++) {
+            int counter = 0;
+            List<String> currList = new ArrayList<>();
+            curr = curr + searchWord.charAt(i);
+            for (String word : products) {
+                if(word.length() >= curr.length() && word.substring(0, i+1).equals(curr) && counter < 3) {
+                    currList.add(word);
+                    counter++;
+                }
+            }
+            res.add(currList);
+        }
+        return res;      
+    }
+}
