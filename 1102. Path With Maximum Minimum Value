@@ -1,0 +1,30 @@
+class Solution {
+    public int maximumMinimumPath(int[][] grid) {
+        int res=grid[0][0];
+        PriorityQueue<int[]>pq=new PriorityQueue<>((a1,a2)->{
+            return a2[2]-a1[2];
+        });
+        Set<Integer>set=new HashSet<>();set.add(0);
+        int a[]=new int[3];a[2]=res;pq.add(a);
+        while(pq.size()!=0){
+            int parent[]=pq.poll();
+            int row=parent[0];int col=parent[1];int val=parent[2];
+            res=Math.min(res,val);
+            if(row==grid.length-1&&col==grid[0].length-1)break;
+            add(grid,row+1,col,pq,set);
+            add(grid,row-1,col,pq,set);
+            add(grid,row,col+1,pq,set);
+            add(grid,row,col-1,pq,set);
+        }
+        return res;
+    }
+    public void add(int grid[][],int row,int col,PriorityQueue<int[]>pq,Set<Integer>set){
+        if(row<0||col<0||row>=grid.length||col>=grid[0].length)return;
+        int id=row*grid[0].length+col;
+        if(set.contains(id))return;
+        set.add(id);
+        int arr[]=new int[3];
+        arr[0]=row;arr[1]=col;arr[2]=grid[row][col];
+        pq.add(arr);
+    }
+}
